@@ -109,9 +109,9 @@ def report(flags):
 def intro():
     print("Welcome to discord-parse\nA simple script for pulling data out of a Discord user data export.")
     print("Some notes:\n - Data stays on your device, don't believe me? Read the code.\n" + 
-          " - Time deletas are calculated by the time NOW, not when you exported your DB, so active" +
+          " - Time deltas are calculated by the time NOW, not when you exported your DB, so active" +
           " servers will become invalid quite quickly.\n" + 
-          " - The telemetry module will still work if you have data usage turned off in settings (creepy, I know.)\n" + 
+          " - The telemetry module will still work, even if you have data usage turned off in settings (creepy, I know.)\n" + 
           " - Not all data is used, feel free to add new parsers if you find anything interesting.\n\n")
 
 @click.group()
