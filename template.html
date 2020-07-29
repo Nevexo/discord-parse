@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>discord-parse report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+        }
+        body {
+            color: white;
+            background-color: #23272A;
+        }
+        b {
+            font-weight: 500;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .box {
+            padding: 2em;
+            margin: 0.3vw;
+            border-style: solid;
+            border-color: #7289DA;
+        }
+        table, th, td {
+            border: 1px solid white;
+            border-collapse: collapse;
+            padding: 0.5em
+        }
+    </style>
+</head>
+<body>
+    <h1>discord-parse report</h1>
+    <h3>Generated: {GENERATED_TIMESTAMP} - note: time deltas are created from the time <b>now</b>, so 'active' may not be accurate.</h3>
+    <hr>
+    <div class="container">
+        <div class="box">
+            <h2>User Information</h2>
+            <hr>
+            <img src="export/account/avatar.png">
+            <p>{USER_NAME}#{USER_DISCRIM}</p>
+            <p>ID: {USER_ID}</p>
+            <br>
+            <h3>Client information</h3>
+            <p>Theme: {DISCORD_THEME}</p>
+            <p>Developer: {DISCORD_DEV_MODE}</p>
+            <p>GIF Auto Play: {DISCORD_GIF_AUTO}</p>
+        </div>
+        <div class="box">
+            <h2>Server Information</h2>
+            <hr>
+            <p>You're in {SERVER_COUNT} servers.</p>
+            <p>You're active in {SERVER_ACTIVE_PERCENT}% ({SERVER_ACTIVE}) of them.</p>
+            <p>Re-run the report command with --no-guild-table to hide this</p>
+            <table id="hide">
+                <tr>
+                    <th>Name</th>
+                    <th>Messages Sent</th>
+                    <th>Active</th>
+                </tr>
+                {SERVERS_TABLE}
+            </table>
+        </div>
+        <div class="box">
+            <h2>Messages</h2>
+            <hr>
+            <h3>You have sent <b>{MESSAGES_COUNT}</b> messages.</h3>
+            <p>{ORPHAN_COUNT} of which are from unknown (probably deleted) servers.</p>
+            <p>Your first (tracked) message was <br><b>"{FIRST_MESSAGE}"</b><br> sent at <b>{FIRST_MESSAGE_DATE}</b></p>
+            <hr>
+            <p>Your most commonly sent message is: <b>'{MOST_COMMON_MESSAGE}'</b>, you've said this 
+                <b>{MOST_COMMON_MESSAGE_COUNT}</b> times.
+            </p>
+            <p>{DM_TO_GUILD_PERCENT}% of your messages were DMs (groups included)</p>
+            <p>You've sent messages in {CHANNEL_COUNT} different channels.</p>
+            
+        </div>
+        <div class="box">
+            <h2>Data Collection</h2>
+            <hr>
+            <p><b>This year, you have...</b></p>
+            <p>Opened <b>{POP_OUTS}</b> pop-outs and <b>{CHANNELS_OPENED}</b> channels.</p>
+            <p>Edited <b>{MESSAGES_EDITED}</b> messages.</p>
+            <p>Joined a call {CALLS_JOINED} times.</p>
+            <p>Started <b>{SESSIONS_STARTED}</b> sessions to Discord.</p>
+            <p>Logged in {LOG_IN_COUNT} times.</p>
+            <p>Started talking {TALKING_START_EVENTS} times.</p>
+            <p>Used Discord on the following platforms:</p>
+            <ul>
+                {OS_LIST}
+            </ul>
+            <p>Used Discord in the following cities:</p>
+            <ul>
+                {CITY_LIST}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
