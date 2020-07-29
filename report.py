@@ -8,6 +8,7 @@ from parsers import user
 from parsers import tracking
 from parsers import guilds
 from parsers import messages
+import config
 
 u = user.Parser()
 t = tracking.Parser()
@@ -91,6 +92,16 @@ def report(flags):
     html = html.replace("{DISCORD_THEME}", str(u.settings['theme']))
     html = html.replace("{DISCORD_DEV_MODE}", str(u.settings['developer_mode']))
     html = html.replace("{DISCORD_GIF_AUTO}", str(u.settings['gif_auto_play']))
+
+    # Theme the template
+    if u.settings['theme'] == "dark":
+        html = html.replace("{THEME_BG}", config.DARK_THEME_BG_COLOUR)
+        html = html.replace("{THEME_CLR}", config.DARK_THEME_COLOUR)
+        html = html.replace("{TABLE_CLR}", config.DARK_THEME_TABLE)
+    else:
+        html = html.replace("{THEME_BG}", config.LIGHT_THEME_BG_COLOUR)
+        html = html.replace("{THEME_CLR}", config.LIGHT_THEME_COLOUR)
+        html = html.replace("{TABLE_CLR}", config.LIGHT_THEME_TABLE)
 
     with open("report.html", "w+") as f:
         f.write(html)
