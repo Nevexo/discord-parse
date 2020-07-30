@@ -6,7 +6,7 @@ You can create an export in the Discord client, it takes forever to arrive thoug
 
 ## Usage
 
-> discord-parse requires Python 3.6+
+> discord-parse requires Python 3.7+
 
 ### Install dependencies
 
