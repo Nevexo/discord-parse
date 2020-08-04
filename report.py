@@ -49,7 +49,7 @@ def report(flags):
 
     # Gen report
     html = ""
-    with open("template.html", "r+") as f:
+    with open("template.html", "r+", encoding="utf-8") as f:
         html = f.read()
     
     os_list = ""
@@ -103,7 +103,7 @@ def report(flags):
         html = html.replace("{THEME_CLR}", config.LIGHT_THEME_COLOUR)
         html = html.replace("{TABLE_CLR}", config.LIGHT_THEME_TABLE)
 
-    with open("report.html", "w+") as f:
+    with open("report.html", "w+", encoding="utf-8") as f:
         f.write(html)
 
 def intro():
