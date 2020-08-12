@@ -69,7 +69,11 @@ def report(flags):
     html = html.replace("{USER_DISCRIM}", str(u.discrim))
     html = html.replace("{USER_ID}", str(u.id))
     html = html.replace("{SERVER_COUNT}", str(g.count))
-    html = html.replace("{SERVER_ACTIVE_PERCENT}", str(round(g.count / active_count)))
+    try:
+        html = html.replace("{SERVER_ACTIVE_PERCENT}", str(round(g.count / active_count)))
+    except:
+        print("[WARN] Can't calculate active server percentage, probably not active in any.")
+        html = html.replace("{SERVER_ACTIVE_PERCENT}", "0%")
     html = html.replace("{SERVER_ACTIVE}", str(active_count))
     html = html.replace("{MESSAGES_COUNT}", str(m.count))
     html = html.replace("{ORPHAN_COUNT}", str(m.orphan_guild_messages))
