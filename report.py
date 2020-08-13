@@ -33,7 +33,7 @@ def report(flags):
         if server['active']:
             active_count += 1
     
-    dm_percent = round(m.dm_count / m.guild_count)
+    dm_percent = round(m.dm_count / m.guild_count, 3)
 
     # Create the server table
     if "NO_GUILD_TABLE" in flags:
@@ -72,11 +72,7 @@ def report(flags):
     html = html.replace("{USER_DISCRIM}", str(u.discrim))
     html = html.replace("{USER_ID}", str(u.id))
     html = html.replace("{SERVER_COUNT}", str(g.count))
-    #try:
     html = html.replace("{SERVER_ACTIVE_PERCENT}", str(round((active_count / g.count)*100)))
-    #except:
-    #    print("[WARN] Can't calculate active server percentage, probably not active in any.")
-    #    html = html.replace("{SERVER_ACTIVE_PERCENT}", "0%")
     html = html.replace("{SERVER_ACTIVE}", str(active_count))
     html = html.replace("{MESSAGES_COUNT}", str(m.count))
     html = html.replace("{ORPHAN_COUNT}", str(m.orphan_guild_messages))
