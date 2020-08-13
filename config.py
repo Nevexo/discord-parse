@@ -7,9 +7,8 @@ EXPORT_DIR = os.path.join(os.getcwd(), "export")
 
 # === MESSAGES ===
 
-# You must have sent a message within the past N to mark a guild as active.
-# This is a little inaccurate as the time of export likely don't align with
-# your system time.
+# You must have sent a message within the past N days to mark a guild as active.
+# This is relative to the most recent logged telemetry event.
 IS_ACTIVE_DAYS = 7
 
 # === REPORT ===

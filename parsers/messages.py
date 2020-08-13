@@ -22,7 +22,7 @@ class Parser:
         self.orphan_guild_messages = 0  # Messages with no parent guild.
         self.most_common_message = {}  # Most commonly said message
 
-    def parse(self):
+    def parse(self,latest_event):
         """
         Load all messages and parse them
         :return: success bool
@@ -37,7 +37,7 @@ class Parser:
             index = json.load(f)
 
         print("[MESSAGES] Indexing all messages (this gonna take a sec)")
-        print(f"[MESSAGES] Message deltas are calculated from UTC ({datetime.utcnow()}).")
+        print(f"[MESSAGES] Message deltas are calculated from latest telemetry event ({latest_event.strftime('%Y-%m-%d %H:%M:%S')}).")
         # What follows is probably the worst block of code in this entire
         # script.
         with click.progressbar(index) as bar:
@@ -99,7 +99,7 @@ class Parser:
                             g['messages'] += 1
                             
                             # Activity check
-                            if (datetime.utcnow() - message['ts'].replace(tzinfo=None)).days <= config.IS_ACTIVE_DAYS:
+                            if (latest_event - message['ts'].replace(tzinfo=None)).days <= config.IS_ACTIVE_DAYS:
                                 g['active'] = True
 
                             self.guilds[gid] = g 
