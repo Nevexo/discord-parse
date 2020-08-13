@@ -6,6 +6,7 @@ import os
 import config
 import json
 import click
+import datetime
 
 class Parser:
     def __init__(self):
@@ -20,6 +21,7 @@ class Parser:
         self.os_uses = {}
         self.speaking_start_events = 0
         self.cities = []
+        self.latest_event = datetime.datetime(1970,1,1,0,0,0,0)
 
     def parse(self):
         """
@@ -41,6 +43,11 @@ class Parser:
                         if data['event_type'] == "message_edited": self.messages_edited += 1
                         if data['event_type'] == "session_start": self.sessions_started += 1
                         if data['event_type'] == "start_speaking": self.speaking_start_events += 1
+                        
+                        # \"2020-08-04T22:49:16.724Z\"
+                        event_time_clean = data['timestamp'].replace('\\', '').replace('"', '').replace('Z', '').partition(".")[0] 
+                        event_timestamp = datetime.datetime.strptime(event_time_clean, "%Y-%m-%dT%H:%M:%S")
+                        self.latest_event = max(self.latest_event, event_timestamp)
 
                         if 'os' not in data: continue
 

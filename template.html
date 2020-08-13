@@ -38,7 +38,9 @@
 </head>
 <body>
     <h1>discord-parse report</h1>
-    <h3>Generated: {GENERATED_TIMESTAMP} - note: time deltas are created from the time <b>now</b>, so 'active' may not be accurate.</h3>
+    <h3>Generated: {GENERATED_TIMESTAMP}</h3>
+	<h3>Latest event: {LATEST_EVENT_TIMESTAMP}</h3>
+	<h3>You are considered active in a server if you have sent a message since {ACTIVITY_THRESHOLD} <i>(Change this in config.py)</i></h3>
     <hr>
     <div class="container">
         <div class="box">

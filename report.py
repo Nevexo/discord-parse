@@ -4,6 +4,7 @@
 
 import click
 from datetime import datetime
+from datetime import timedelta
 from parsers import user
 from parsers import tracking
 from parsers import guilds
@@ -19,8 +20,8 @@ def parse():
     print("Starting parsing, this may take a moment.")
     u.parse()
     g.parse()
-    m.parse()
-    t.parse()
+    t.parse()    
+    m.parse(t.latest_event) # sorry.
     print("Automatic parsing complete.")
 
 def report(flags):
@@ -65,15 +66,17 @@ def report(flags):
 
     # bit shoddy, but it works.
     html = html.replace("{GENERATED_TIMESTAMP}", str(datetime.utcnow()))
+    html = html.replace("{LATEST_EVENT_TIMESTAMP}", t.latest_event.strftime("%Y-%m-%d %H:%M:%S"))
+    html = html.replace("{ACTIVITY_THRESHOLD}", (t.latest_event - timedelta(config.IS_ACTIVE_DAYS)).strftime("%Y-%m-%d %H:%M:%S"))
     html = html.replace("{USER_NAME}", u.name)
     html = html.replace("{USER_DISCRIM}", str(u.discrim))
     html = html.replace("{USER_ID}", str(u.id))
     html = html.replace("{SERVER_COUNT}", str(g.count))
-    try:
-        html = html.replace("{SERVER_ACTIVE_PERCENT}", str(round(g.count / active_count)))
-    except:
-        print("[WARN] Can't calculate active server percentage, probably not active in any.")
-        html = html.replace("{SERVER_ACTIVE_PERCENT}", "0%")
+    #try:
+    html = html.replace("{SERVER_ACTIVE_PERCENT}", str(round((active_count / g.count)*100)))
+    #except:
+    #    print("[WARN] Can't calculate active server percentage, probably not active in any.")
+    #    html = html.replace("{SERVER_ACTIVE_PERCENT}", "0%")
     html = html.replace("{SERVER_ACTIVE}", str(active_count))
     html = html.replace("{MESSAGES_COUNT}", str(m.count))
     html = html.replace("{ORPHAN_COUNT}", str(m.orphan_guild_messages))
@@ -113,8 +116,8 @@ def report(flags):
 def intro():
     print("Welcome to discord-parse\nA simple script for pulling data out of a Discord user data export.")
     print("Some notes:\n - Data stays on your device, don't believe me? Read the code.\n" + 
-          " - Time deltas are calculated by the time NOW, not when you exported your DB, so active" +
-          " servers will become invalid quite quickly.\n" + 
+          " - Time deltas are now calculated relative to the latest telemetry event, so active" +
+          " servers are now more valid.\n" + 
           " - The telemetry module will still work, even if you have data usage turned off in settings (creepy, I know.)\n" + 
           " - Not all data is used, feel free to add new parsers if you find anything interesting.\n\n")
 
