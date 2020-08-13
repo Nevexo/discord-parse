@@ -16,8 +16,13 @@ class Parser:
         self.acked_messages = 0
         self.messages_edited = 0
         self.calls_joined = 0
+        self.voice_chats_joined = 0
         self.sessions_started = 0
         self.logins = 0
+        self.emoji_created = 0
+        self.reactions = 0
+        self.data_requests = 0
+        self.setting_tweaks = 0
         self.os_uses = {}
         self.speaking_start_events = 0
         self.cities = []
@@ -43,6 +48,11 @@ class Parser:
                         if data['event_type'] == "message_edited": self.messages_edited += 1
                         if data['event_type'] == "session_start": self.sessions_started += 1
                         if data['event_type'] == "start_speaking": self.speaking_start_events += 1
+                        if data['event_type'] == "join_voice_channel": self.voice_chats_joined += 1
+                        if data['event_type'] == "create_emoji": self.emoji_created += 1
+                        if data['event_type'] == "add_reaction": self.reactions += 1
+                        if data['event_type'] == "data_request_initiated": self.data_requests += 1
+                        if data['event_type'] == "update_user_settings": self.setting_tweaks += 1
                         
                         # \"2020-08-04T22:49:16.724Z\"
                         event_time_clean = data['timestamp'].replace('\\', '').replace('"', '').replace('Z', '').partition(".")[0] 
